@@ -2,13 +2,12 @@ import cv2
 from shapeDetection.shapedetector import ShapeDetector
 import imutils
 
-def getmycans():
-    
+   
 
 #cap = cv2.VideoCapture(1)
 while 1:
     image = cv2.imread("quadrabottrack.png")
-    getmycans(image)
+    #getmycans(image)
     resized = imutils.resize(image, width=300)
     ratio = image.shape[0] / float(resized.shape[0])
     gray = cv2.cvtColor(resized, cv2.COLOR_BGR2GRAY)
