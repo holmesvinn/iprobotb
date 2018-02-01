@@ -1,6 +1,6 @@
 import cv2
 
-class ShapeDetector:
+class ShapeDetector():
     def __init__(self):
         pass
 
@@ -21,7 +21,6 @@ class ShapeDetector:
             shape = "square" if aspect_ration >= 0.95 and aspect_ration <= 1.05 else "rectangle"
         else:
             shape = "circle"
-
 
         return shape
 
