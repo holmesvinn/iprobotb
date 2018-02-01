@@ -29,6 +29,7 @@ class ObjectTracking():
             upper = np.array([140,255,255]) 
 
         mask = cv2.inRange(hsv,lower ,upper)
+        cv2.imshow("masked",mask)
         print("mask properties: ", mask.shape,mask.size)
         blurred = cv2.GaussianBlur(mask, (5, 5), 0)
         ret, thresh = cv2.threshold(blurred, 240, 255, cv2.THRESH_BINARY)
@@ -40,26 +41,21 @@ class ObjectTracking():
         cnts = cv2.findContours(dilated.copy(), cv2.RETR_EXTERNAL,
 	        cv2.CHAIN_APPROX_SIMPLE)
         cnts = cnts[0] if imutils.is_cv2() else cnts[1]
-        cv2.drawContours(mask, cnts, -1, (0,255,0), 3)
-
         
         for c in cnts:
-            
             points = cd.getCoOrdinate(c,image,False)
+    
+            
             if color == "red":
                 cans.append(points)
+
             if color == "green":
                 bot_green.append(points)
+                return bot_green
             if color == "blue":
                 bot_blue.append(points)
+                return bot_blue
 
-
-        print("distance between the 1st can and circle")
-
-        print("position of the cans: ", cans)
-        print("position of the bot_green:", bot_green)
-
-        print("position of the bot_blue:", bot_blue)
-        return mask
+        return cans
 
         

@@ -17,9 +17,12 @@ bot_blue = "blue"
 #cap = cv2.VideoCapture(1)
 while 1:
     image = cv2.imread("quadrac6.png")
-    mycans = ot.trackObject(image,can_color)
-    my_bot_blue = ot.trackObject(image,bot_blue)
-    my_bot_green = ot.trackObject(image,bot_green)
+    can_position = ot.trackObject(image,can_color)
+    my_bot_blue_position = ot.trackObject(image,bot_blue)
+    my_bot_green_position = ot.trackObject(image,bot_green)
+    print("cans: ",can_position)
+    print("my_bot_blue: ",my_bot_blue_position)
+    print("my_bot_green: ",my_bot_green_position)
     
     #resized = imutils.resize(image, width=300)
     #ratio = image.shape[0] / float(resized.shape[0])
@@ -38,14 +41,25 @@ while 1:
         points, shape = cd.getCoOrdinate(c,image,True)
         destinations.append(points)
         shapes.append(shape)
+        
     
-    gray_original = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
+    """gray_original = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
     final_result = cv2.addWeighted(gray_original,1,mycans,1,0)
-    cv2.imshow("final result",final_result)
+    final_result2 = cv2.addWeighted(final_result,1,my_bot_blue,1,0)
+    final_result2 = cv2.addWeighted(final_result2,1,my_bot_green,1,0)
+    cv2.imshow("final result",final_result)"""
     cv2.imshow("original image",image)
-
     final_dest = list(zip(destinations,shapes))    
     print(final_dest)
+    for i in range(len(final_dest)):
+        if final_dest[i][1] == 'circle' and final_dest[i][0][0] !=0 and final_dest[i][0][1] !=0 :
+            print(final_dest[i][1], final_dest[i][0])
+            print(type(final_dest[i][0]), type(can_position))
+            print(can_position)
+            shortest_can_position = cd.shortest_can_distance(final_dest[i][0],can_position)
+            
+
+        
     k = cv2.waitKey(0)
     
     
