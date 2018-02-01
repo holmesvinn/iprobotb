@@ -1,4 +1,5 @@
 import cv2
+import math
 import numpy as np
 from shapetrack.shapedetector import ShapeDetector
 
@@ -11,7 +12,7 @@ class CoOrdinateDistance():
 
     def getCoOrdinate(self,c,image,what):
         x, y, w, h = cv2.boundingRect(c)
-        cv2.rectangle(image, (x, y), (x+w,y+h), (0, 255, 0),10)
+        cv2.rectangle(image, (x, y), (x+w,y+h), (255,255, 255),1)
         rect = cv2.minAreaRect(c)
         box = cv2.boxPoints(rect)
         box = np.int0(box)    
@@ -23,3 +24,9 @@ class CoOrdinateDistance():
             return center,shape
         else:
             return center
+
+    def distance_between_points(self,p1,p2):
+        dist = math.sqrt(((p2[0]-p1[0])**2)+((p2[1]-p1[1])**2))
+        return dist
+
+
