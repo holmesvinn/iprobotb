@@ -29,13 +29,13 @@ class CoOrdinateDistance():
             return center
 
     def distance_between_points(self,p1,p2):
-
-        dist = math.sqrt(((p2[0]-p1[0])**2)+((p2[1]-p1[1])**2))
+        print("inside distance between points: ",p1[0],p2[0])
+        dist = math.sqrt((int(p2[0]-p1[0])**2)+(int(p2[1]-p1[1])**2))
         return dist
 
     def shortest_can_distance(self,center_point,cans):
         i=0
-        print(type(center_point))
+        print(center_point)
         print(len(cans))
         while(i<len(cans)):
             short_length = self.distance_between_points(center_point,cans[i])

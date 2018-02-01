@@ -30,25 +30,12 @@ class ObjectTracking():
 
         mask = cv2.inRange(hsv,lower ,upper)
         cv2.imshow("masked",mask)
-        print("mask properties: ", mask.shape,mask.size)
-        blurred = cv2.GaussianBlur(mask, (5, 5), 0)
-        ret, thresh = cv2.threshold(blurred, 240, 255, cv2.THRESH_BINARY)
-        cv2.imshow("threshold for mask:",thresh)   
-        eroded = cv2.erode(thresh,None, iterations=2)
-        cv2.imshow("eroded mask",eroded)
-        dilated = cv2.dilate(eroded,None, iterations=2)
-        cv2.imshow("dilated mask:", dilated)
-        cnts = cv2.findContours(dilated.copy(), cv2.RETR_EXTERNAL,
-	        cv2.CHAIN_APPROX_SIMPLE)
-        cnts = cnts[0] if imutils.is_cv2() else cnts[1]
+        cnts = sd.getContour(mask)
         
         for c in cnts:
             points = cd.getCoOrdinate(c,image,False)
-    
-            
             if color == "red":
                 cans.append(points)
-
             if color == "green":
                 bot_green.append(points)
                 return bot_green
@@ -57,5 +44,7 @@ class ObjectTracking():
                 return bot_blue
 
         return cans
+
+
 
         
