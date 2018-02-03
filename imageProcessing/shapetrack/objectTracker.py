@@ -20,16 +20,16 @@ class ObjectTracking():
         hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
         if color == "red":
             lower = np.array([0,100,100])
-            upper = np.array([20,255,255])  
+            upper = np.array([50,255,255])  
         elif color == "green":
-            lower = np.array([30,150,150])
+            lower = np.array([45,100,100])
             upper = np.array([80,255,255]) 
         elif color == "blue":
-            lower = np.array([90,100,100])
+            lower = np.array([90,50,50])
             upper = np.array([140,255,255]) 
 
         mask = cv2.inRange(hsv,lower ,upper)
-        cv2.imshow("masked",mask)
+        #cv2.imshow("masked",mask)
         cnts = sd.getContour(mask)
         
         for c in cnts:

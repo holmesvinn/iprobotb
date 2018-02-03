@@ -8,7 +8,7 @@ class ShapeDetector():
     def getContour(self,image):
         blurred = cv2.GaussianBlur(image, (5,5), 0)
         ret, thresh = cv2.threshold(blurred, 240, 255, cv2.THRESH_BINARY)
-        cv2.imshow("threshold",thresh)
+        #cv2.imshow("threshold",thresh)
         eroded = cv2.erode(thresh,None, iterations=3)
         dilated = cv2.dilate(eroded,None, iterations=3)
         cnts = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL,
